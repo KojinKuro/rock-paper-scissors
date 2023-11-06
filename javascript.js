@@ -2,12 +2,30 @@ game();
 
 function game() {
     const NUM_PLAYS = 5;
+    let playerScore = computerScore = 0;
 
     console.log(`You are about to play ${NUM_PLAYS} rounds of Rock Paper Scissors.`)
     for (let i = 1; i <= NUM_PLAYS; i++) {
         let playerChoice = prompt('Rock, paper, or scissors?','');
         let computerChoice = getComputerChoice();
-        console.log(playRound(playerChoice, computerChoice));
+        let gameResult = playRound(playerChoice, computerChoice);
+        let gameResultMessage = `You ${gameResult}! `;
+
+        switch(gameResult) {
+            case 'won':
+                gameResultMessage += `${playerChoice} beats ${computerChoice}`;
+                playerScore++;
+                break;
+            case 'lost':
+                gameResultMessage += `${playerChoice} loses to ${computerChoice}`;
+                computerScore++;
+                break;
+            case 'drew':
+                gameResultMessage += `${playerChoice} and ${computerChoice} are the same.`
+                break;
+        }
+        
+        console.log(gameResultMessage);
         console.log(`The player:computer score is ${playerScore}:${computerScore}`);
     } console.log(checkWinner(playerScore,computerScore));
 }
@@ -15,14 +33,6 @@ function game() {
 function checkWinner(score1,score2) {
     let playerResult = (score1 > score2) ? 'won' : (score2 > score1) ? 'lost' : 'drew';
     return `You ${playerResult} against the computer in RPS!`;
-}
-
-function addPlayerScore() {
-    playerScore += 1;
-}
-
-function addComputerScore() {
-    computerScore += 1;
 }
 
 function getComputerChoice() {
@@ -45,21 +55,21 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    // player values might not come in the right format. following code will format everything correctly.
-    playerSelection = playerSelection.slice(0,1).toUpperCase() + playerSelection.slice(1).toLowerCase();
-    
-    let gameText = "You ";
+    playerSelection = formatText(playerSelection);
+    computerSelection = formatText(computerSelection);
+
     let gameResult = solveRPS(playerSelection, computerSelection);
     if (gameResult === playerSelection) {
-        gameText += `won! ${playerSelection} beats ${computerSelection}.`;
-        addPlayerScore();
+        return 'won';
     } else if (gameResult === computerSelection) {
-        gameText += `lost! ${playerSelection} loses to ${computerSelection}.`;
-        addComputerScore();
+        return 'lost';
     } else {
-        // if you get errors in the code will default to a draw.
-        gameText += `drew! ${playerSelection} and ${computerSelection} are the same.`;
-    } return gameText;
+        return 'drew';
+    }
+}
+
+function formatText(text) {
+    return text.slice(0,1).toUpperCase() + text.slice(1).toLowerCase();
 }
 
 function solveRPS(res1, res2) {
