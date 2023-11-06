@@ -1,12 +1,10 @@
-//set the scores set to 0
-let playerScore = computerScore = 0;
 game();
 
 function game() {
     const NUM_PLAYS = 5;
+
     console.log(`You are about to play ${NUM_PLAYS} rounds of Rock Paper Scissors.`)
     for (let i = 1; i <= NUM_PLAYS; i++) {
-        //main game runs once
         let playerChoice = prompt('Rock, paper, or scissors?','');
         let computerChoice = getComputerChoice();
         console.log(playRound(playerChoice, computerChoice));
@@ -28,10 +26,8 @@ function addComputerScore() {
 }
 
 function getComputerChoice() {
-    //generate a number between 1 to 3
-    let compNumChoice = Math.floor(Math.random() * 3) + 1;
-    //assign that number to an outcome
-    switch (compNumChoice) {
+    let randomNum = Math.floor(Math.random() * 3) + 1;
+    switch (randomNum) {
         case 1:
             return 'Rock';
             break;
@@ -49,19 +45,16 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    // whatever the player types gets converted into 'Rock', 'Paper', 'Scissors'
+    // player values might not come in the right format. following code will format everything correctly.
     playerSelection = playerSelection.slice(0,1).toUpperCase() + playerSelection.slice(1).toLowerCase();
     
-    // gameResult will end up in the format of "You Lose! Paper beats Rock"
     let gameText = "You ";
     let gameResult = solveRPS(playerSelection, computerSelection);
     if (gameResult === playerSelection) {
         gameText += `won! ${playerSelection} beats ${computerSelection}.`;
-        //add to playerScore
         addPlayerScore();
     } else if (gameResult === computerSelection) {
         gameText += `lost! ${playerSelection} loses to ${computerSelection}.`;
-        //add to computerScore
         addComputerScore();
     } else {
         // if you get errors in the code will default to a draw.
@@ -70,7 +63,6 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function solveRPS(res1, res2) {
-    //will return the value that wins. if its a draw or incalculable, returns nothing;
     switch (res1) {
         case 'Rock':
             if (res2 == 'Scissors') {
@@ -90,6 +82,5 @@ function solveRPS(res1, res2) {
             } else if (res2 == 'Rock') {
                 return res2;
             } break;
-    // if cannot resolve will blank return
     } return;
 }
