@@ -4,7 +4,7 @@ game();
 
 function game() {
     const NUM_PLAYS = 5;
-    console.log('You are about to play 5 rounds of Rock Paper Scissors.')
+    console.log(`You are about to play ${NUM_PLAYS} rounds of Rock Paper Scissors.`)
     for (let i = 1; i <= NUM_PLAYS; i++) {
         //main game runs once
         let playerChoice = prompt('Rock, paper, or scissors?','');
@@ -54,7 +54,7 @@ function playRound(playerSelection, computerSelection) {
     
     // gameResult will end up in the format of "You Lose! Paper beats Rock"
     let gameText = "You ";
-    let gameResult = rpsSolver(playerSelection, computerSelection);
+    let gameResult = solveRPS(playerSelection, computerSelection);
     if (gameResult === playerSelection) {
         gameText += `won! ${playerSelection} beats ${computerSelection}.`;
         //add to playerScore
@@ -69,7 +69,7 @@ function playRound(playerSelection, computerSelection) {
     } return gameText;
 }
 
-function rpsSolver(res1, res2) {
+function solveRPS(res1, res2) {
     //will return the value that wins. if its a draw or incalculable, returns nothing;
     switch (res1) {
         case 'Rock':
