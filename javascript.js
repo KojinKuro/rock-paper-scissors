@@ -30,7 +30,7 @@ function playRound(playerSelection, computerSelection) {
     
     // gameResult will end up in the format of "You Lose! Paper beats Rock"
     let gameText = "You ";
-    let gameResult = rpsWinner(playerSelection, computerSelection);
+    let gameResult = rpsSolver(playerSelection, computerSelection);
     if (gameResult === playerSelection) {
         gameText += `won! ${playerSelection} beats ${computerSelection}.`;
     } else if (gameResult === computerSelection) {
@@ -41,7 +41,7 @@ function playRound(playerSelection, computerSelection) {
     } return gameText;
 }
 
-function rpsWinner(res1, res2) {
+function rpsSolver(res1, res2) {
     switch (res1) {
         case 'Rock':
             if (res2 == 'Scissors') {
