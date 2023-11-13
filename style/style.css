@@ -1,0 +1,24 @@
+.score-container {
+    display: flex;
+    flex-direction: row;
+
+    gap: 100px;
+}
+
+.score-container > * {
+    text-align: center;
+}
+
+.name {
+    font-size: 30px;
+}
+
+.score {
+    font-size: 20px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

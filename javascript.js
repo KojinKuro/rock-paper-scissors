@@ -25,9 +25,9 @@ function checkWinner() {
     const WIN_SCORE = 5;
 
     if (+playerScoreNode.innerText >= WIN_SCORE) {
-        gameWinnerNode.innerText = 'You won!';
+        gameWinnerNode.innerText = 'You won against the computer!';
     } else if (+computerScoreNode.innerText >= WIN_SCORE) {
-        gameWinnerNode.innerText = 'You lost!';
+        gameWinnerNode.innerText = 'You lost against the computer!';
     }
 }
 
