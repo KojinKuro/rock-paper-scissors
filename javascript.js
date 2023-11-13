@@ -10,7 +10,7 @@ function game() {
         let computerChoice = getComputerChoice();
         let gameResult = playRound(playerChoice, computerChoice);
         let gameResultMessage = `You ${gameResult}! `;
-
+        
         switch(gameResult) {
             case 'won':
                 gameResultMessage += `${playerChoice} beats ${computerChoice}`;
@@ -24,13 +24,14 @@ function game() {
                 gameResultMessage += `${playerChoice} and ${computerChoice} are the same.`
                 break;
         }
-        
+
         console.log(gameResultMessage);
         console.log(`The player:computer score is ${playerScore}:${computerScore}`);
     } console.log(checkWinner(playerScore,computerScore));
 }
 
 function checkWinner(score1,score2) {
+    // wanted to keep code in one
     let playerResult = (score1 > score2) ? 'won' : (score2 > score1) ? 'lost' : 'drew';
     return `You ${playerResult} against the computer in RPS!`;
 }
