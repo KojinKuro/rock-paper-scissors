@@ -4,30 +4,42 @@ function game() {
     const NUM_PLAYS = 5;
     let playerScore = computerScore = 0;
 
-    console.log(`You are about to play ${NUM_PLAYS} rounds of Rock Paper Scissors.`)
-    for (let i = 1; i <= NUM_PLAYS; i++) {
-        let playerChoice = prompt('Rock, paper, or scissors?','');
-        let computerChoice = getComputerChoice();
-        let gameResult = playRound(playerChoice, computerChoice);
-        let gameResultMessage = `You ${gameResult}! `;
-        
-        switch(gameResult) {
-            case 'won':
-                gameResultMessage += `${playerChoice} beats ${computerChoice}`;
-                playerScore++;
-                break;
-            case 'lost':
-                gameResultMessage += `${playerChoice} loses to ${computerChoice}`;
-                computerScore++;
-                break;
-            case 'drew':
-                gameResultMessage += `${playerChoice} and ${computerChoice} are the same.`
-                break;
-        }
+    let buttonVar = document.querySelectorAll(`button`);
+    buttonVar.forEach((button) => {
+        button.addEventListener('click', () => {
+            //debugging code
+            console.log(button.innerText);
 
-        console.log(gameResultMessage);
-        console.log(`The player:computer score is ${playerScore}:${computerScore}`);
-    } console.log(checkWinner(playerScore,computerScore));
+            let playerChoice = button.innerText;
+            let computerChoice = getComputerChoice();
+            playRound(playerChoice, computerChoice);
+        });
+    });
+
+    // console.log(`You are about to play ${NUM_PLAYS} rounds of Rock Paper Scissors.`)
+    // for (let i = 1; i <= NUM_PLAYS; i++) {
+    //     let playerChoice = prompt('Rock, paper, or scissors?','');
+    //     let computerChoice = getComputerChoice();
+    //     let gameResult = playRound(playerChoice, computerChoice);
+    //     let gameResultMessage = `You ${gameResult}! `;
+        
+    //     switch(gameResult) {
+    //         case 'won':
+    //             gameResultMessage += `${playerChoice} beats ${computerChoice}`;
+    //             playerScore++;
+    //             break;
+    //         case 'lost':
+    //             gameResultMessage += `${playerChoice} loses to ${computerChoice}`;
+    //             computerScore++;
+    //             break;
+    //         case 'drew':
+    //             gameResultMessage += `${playerChoice} and ${computerChoice} are the same.`
+    //             break;
+    //     }
+
+    //     console.log(gameResultMessage);
+    //     console.log(`The player:computer score is ${playerScore}:${computerScore}`);
+    // } console.log(checkWinner(playerScore,computerScore));
 }
 
 function checkWinner(score1,score2) {
@@ -60,13 +72,21 @@ function playRound(playerSelection, computerSelection) {
     computerSelection = formatText(computerSelection);
 
     let gameResult = solveRPS(playerSelection, computerSelection);
+    let gameResultMessage = `You `;
+    let choiceBeatTxt = '';
+
     if (gameResult === playerSelection) {
-        return 'won';
+        gameResultMessage += 'won';
+        choiceBeatTxt = 'wins';
     } else if (gameResult === computerSelection) {
-        return 'lost';
+        gameResultMessage += 'lost';
+        choiceBeatTxt = 'loses';
     } else {
-        return 'drew';
-    }
+        gameResultMessage += 'drew';
+        choiceBeatTxt = 'draws';
+    } gameResultMessage += `! ${playerSelection} ${choiceBeatTxt} against ${computerSelection}.`;
+
+    document.querySelector('.game-result').innerText = gameResultMessage;
 }
 
 function formatText(text) {
