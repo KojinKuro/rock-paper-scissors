@@ -16,6 +16,11 @@ function game() {
         });
     });
 
+    let scoreVar = document.querySelectorAll(`.score`);
+    scoreVar.forEach((score) => {
+        score.addEventListener('')
+    });
+
     // console.log(`You are about to play ${NUM_PLAYS} rounds of Rock Paper Scissors.`)
     // for (let i = 1; i <= NUM_PLAYS; i++) {
     //     let playerChoice = prompt('Rock, paper, or scissors?','');
@@ -78,15 +83,27 @@ function playRound(playerSelection, computerSelection) {
     if (gameResult === playerSelection) {
         gameResultMessage += 'won';
         choiceBeatTxt = 'wins';
+        addScorePlayer();
     } else if (gameResult === computerSelection) {
         gameResultMessage += 'lost';
         choiceBeatTxt = 'loses';
+        addScoreComputer();
     } else {
         gameResultMessage += 'drew';
         choiceBeatTxt = 'draws';
     } gameResultMessage += `! ${playerSelection} ${choiceBeatTxt} against ${computerSelection}.`;
 
     document.querySelector('.game-result').innerText = gameResultMessage;
+}
+
+function addScorePlayer() {
+    let playerScore = document.querySelector('.player-container .score');
+    playerScore.innerText = parseInt(playerScore.innerText) + 1;
+}
+
+function addScoreComputer() {
+    let computerScore = document.querySelector('.computer-container .score');
+    computerScore.innerText = parseInt(computerScore.innerText) + 1;
 }
 
 function formatText(text) {
