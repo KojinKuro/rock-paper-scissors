@@ -24,9 +24,11 @@ function checkWinner() {
     let gameWinnerNode = document.querySelector(`.game-winner`);
     const WIN_SCORE = 5;
 
-    if (+playerScoreNode.innerText >= WIN_SCORE) {
+    
+
+    if (+playerScoreNode.innerText >= WIN_SCORE && +playerScoreNode.innerText >= +computerScoreNode.innerText) {
         gameWinnerNode.innerText = 'You won against the computer!';
-    } else if (+computerScoreNode.innerText >= WIN_SCORE) {
+    } else if (+computerScoreNode.innerText >= WIN_SCORE && +computerScoreNode.innerText >= +playerScoreNode.innerText) {
         gameWinnerNode.innerText = 'You lost against the computer!';
     }
 }
