@@ -4,8 +4,8 @@ function game() {
     const NUM_PLAYS = 5;
     let playerScore = computerScore = 0;
 
-    let buttonVar = document.querySelectorAll(`button`);
-    buttonVar.forEach((button) => {
+    let buttonNodes = document.querySelectorAll(`button`);
+    buttonNodes.forEach((button) => {
         button.addEventListener('click', () => {
             //debugging code
             console.log(button.innerText);
@@ -13,44 +13,22 @@ function game() {
             let playerChoice = button.innerText;
             let computerChoice = getComputerChoice();
             playRound(playerChoice, computerChoice);
+            checkWinner();
         });
     });
-
-    let scoreVar = document.querySelectorAll(`.score`);
-    scoreVar.forEach((score) => {
-        score.addEventListener('')
-    });
-
-    // console.log(`You are about to play ${NUM_PLAYS} rounds of Rock Paper Scissors.`)
-    // for (let i = 1; i <= NUM_PLAYS; i++) {
-    //     let playerChoice = prompt('Rock, paper, or scissors?','');
-    //     let computerChoice = getComputerChoice();
-    //     let gameResult = playRound(playerChoice, computerChoice);
-    //     let gameResultMessage = `You ${gameResult}! `;
-        
-    //     switch(gameResult) {
-    //         case 'won':
-    //             gameResultMessage += `${playerChoice} beats ${computerChoice}`;
-    //             playerScore++;
-    //             break;
-    //         case 'lost':
-    //             gameResultMessage += `${playerChoice} loses to ${computerChoice}`;
-    //             computerScore++;
-    //             break;
-    //         case 'drew':
-    //             gameResultMessage += `${playerChoice} and ${computerChoice} are the same.`
-    //             break;
-    //     }
-
-    //     console.log(gameResultMessage);
-    //     console.log(`The player:computer score is ${playerScore}:${computerScore}`);
-    // } console.log(checkWinner(playerScore,computerScore));
 }
 
-function checkWinner(score1,score2) {
-    // wanted to keep code in one
-    let playerResult = (score1 > score2) ? 'won' : (score2 > score1) ? 'lost' : 'drew';
-    return `You ${playerResult} against the computer in RPS!`;
+function checkWinner() {
+    let playerScoreNode = document.querySelector(`.player-container .score`);
+    let computerScoreNode = document.querySelector(`.computer-container .score`);
+    let gameWinnerNode = document.querySelector(`.game-winner`);
+    const WIN_SCORE = 5;
+
+    if (+playerScoreNode.innerText >= WIN_SCORE) {
+        gameWinnerNode.innerText = 'You won!';
+    } else if (+computerScoreNode.innerText >= WIN_SCORE) {
+        gameWinnerNode.innerText = 'You lost!';
+    }
 }
 
 function getComputerChoice() {
