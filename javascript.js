@@ -7,14 +7,28 @@ function game() {
     let buttonNodes = document.querySelectorAll(`button`);
     buttonNodes.forEach((button) => {
         button.addEventListener('click', () => {
-            //debugging code
-            console.log(button.innerText);
-
             let playerChoice = button.innerText;
+            setPlayerIcon(playerChoice);
             let computerChoice = getComputerChoice();
+            setComputerIcon(computerChoice);
             playRound(playerChoice, computerChoice);
             checkWinner();
         });
+    });
+}
+
+function playAgain() {
+    let gameWinnerNode = document.querySelector(`.game-winner`);
+    gameWinnerNode.innerHTML += ` <button class="play-again">Play again?</button>`;
+
+    let buttonPANode = document.querySelector(`.play-again`);
+    buttonPANode.addEventListener('click', () => {
+        document.querySelector(`.game-result`).innerText = '';
+        document.querySelector(`.game-winner`).innerText = '';
+        setPlayerIcon('?');
+        setComputerIcon('?');
+        document.querySelector(`.player-container .score`).innerText = '0';
+        document.querySelector(`.computer-container .score`).innerText = '0';
     });
 }
 
@@ -24,12 +38,12 @@ function checkWinner() {
     let gameWinnerNode = document.querySelector(`.game-winner`);
     const WIN_SCORE = 5;
 
-    
-
     if (+playerScoreNode.innerText >= WIN_SCORE && +playerScoreNode.innerText >= +computerScoreNode.innerText) {
         gameWinnerNode.innerText = 'You won against the computer!';
+        playAgain();
     } else if (+computerScoreNode.innerText >= WIN_SCORE && +computerScoreNode.innerText >= +playerScoreNode.innerText) {
         gameWinnerNode.innerText = 'You lost against the computer!';
+        playAgain();
     }
 }
 
@@ -74,6 +88,42 @@ function playRound(playerSelection, computerSelection) {
     } gameResultMessage += `! ${playerSelection} ${choiceBeatTxt} against ${computerSelection}.`;
 
     document.querySelector('.game-result').innerText = gameResultMessage;
+}
+
+function setPlayerIcon(text) {
+    let playerIconNode = document.querySelector(`.player-container .icon`);
+    switch (text) {
+        case 'Rock':
+            playerIconNode.innerText = '✊';
+            break;
+        case 'Paper':
+            playerIconNode.innerText = '✋';
+            break;
+        case 'Scissors':
+            playerIconNode.innerText = '✌️';
+            break;
+        default:
+            playerIconNode.innerText = '?';
+            break;
+    }
+}
+
+function setComputerIcon(text) {
+    let computerIconNode = document.querySelector(`.computer-container .icon`);
+    switch (text) {
+        case 'Rock':
+            computerIconNode.innerText = '✊';
+            break;
+        case 'Paper':
+            computerIconNode.innerText = '✋';
+            break;
+        case 'Scissors':
+            computerIconNode.innerText = '✌️';
+            break;
+        default:
+            computerIconNode.innerText = '?';
+            break;
+    }
 }
 
 function addScorePlayer() {

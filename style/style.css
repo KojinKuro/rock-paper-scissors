@@ -51,6 +51,10 @@ body {
     text-align: center;
 }
 
+.icon {
+    font-size: 100px;
+}
+
 .name {
     font-size: 30px;
 }
